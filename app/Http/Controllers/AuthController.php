@@ -27,7 +27,8 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/')->with('success', 'Login Successfully as Super Admin');
+            $role = $request->user()->role === 'superadmin' ? 'Super Admin' : ucfirst($request->user()->role);
+            return redirect('/')->with('success', 'Login Successfully as ' .  $role);
         } else {
             return redirect('/login')->with('error', 'Login Failed, Check your Email and Password!');
         }

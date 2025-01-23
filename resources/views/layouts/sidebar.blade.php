@@ -13,48 +13,52 @@
                 <span class="link-name">Dashboard</span>
             </a>
         </li>
-        <li>
-            <a href="/categories">
-                <i class="uil uil-grids"></i>
-                <span class="link-name">Categories</span>
-            </a>
-        </li>
-        <li>
-            <a href="/units">
-                <i class="uil uil-pathfinder-unite"></i>
-                <span class="link-name">Units</span>
-            </a>
-        </li>
+        @if (auth()->user()->role === 'superadmin')
+            <li>
+                <a href="/categories">
+                    <i class="uil uil-grids"></i>
+                    <span class="link-name">Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="/units">
+                    <i class="uil uil-pathfinder-unite"></i>
+                    <span class="link-name">Units</span>
+                </a>
+            </li>
+        @endif
         <li>
             <a href="/items">
                 <i class="uil uil-table"></i>
                 <span class="link-name">Items</span>
             </a>
         </li>
-        <li>
-            <a href="/vendors">
-                <i class="uil uil-store"></i>
-                <span class="link-name">Vendors</span>
-            </a>
-        </li>
-        <li>
-            <a href="/clients">
-                <i class="uil uil-users-alt"></i>
-                <span class="link-name">Clients</span>
-            </a>
-        </li>
-        <li>
-            <a href="/ipabajas">
-                <i class="uil uil-tear"></i>
-                <span class="link-name">IPA Baja</span>
-            </a>
-        </li>
-        <li>
-            <a href="/projects">
-                <i class="uil uil-bag"></i>
-                <span class="link-name">Projects</span>
-            </a>
-        </li>
+        @if (auth()->user()->role === 'superadmin')
+            <li>
+                <a href="/vendors">
+                    <i class="uil uil-store"></i>
+                    <span class="link-name">Vendors</span>
+                </a>
+            </li>
+            <li>
+                <a href="/clients">
+                    <i class="uil uil-users-alt"></i>
+                    <span class="link-name">Clients</span>
+                </a>
+            </li>
+            <li>
+                <a href="/ipabajas">
+                    <i class="uil uil-tear"></i>
+                    <span class="link-name">IPA Baja</span>
+                </a>
+            </li>
+            <li>
+                <a href="/projects">
+                    <i class="uil uil-bag"></i>
+                    <span class="link-name">Projects</span>
+                </a>
+            </li>
+        @endif
         <li>
             <a href="/item-entries">
                 <i class="uil uil-arrow-circle-down"></i>
@@ -76,12 +80,6 @@
     </ul>
 
     <ul class="logout-mode">
-        <li>
-            <a href="/login">
-                <i class="uil uil-sign-out-alt"></i>
-                <span class="link-name">Login</span>
-            </a>
-        </li>
         <li>
             <a href="/logout" data-method="POST"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
