@@ -18,7 +18,7 @@ class UnitController extends Controller
         }
 
         // Eksekusi query dengan pagination
-        $units = $units->paginate(15);
+        $units = $units->paginate(10);
 
         // Kirim data ke view
         return view('pages.units.index', compact('units'));

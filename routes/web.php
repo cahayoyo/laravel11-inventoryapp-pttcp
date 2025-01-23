@@ -9,6 +9,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemEntryController;
 use App\Http\Controllers\ItemExitController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectReportController;
+use App\Http\Controllers\StockReportController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
@@ -81,3 +83,6 @@ Route::post('/item-exits/store', [ItemExitController::class, 'store']);
 Route::get('/item-exits/edit/{id}', [ItemExitController::class, 'edit']);
 Route::put('/item-exits/{id}', [ItemExitController::class, 'update']);
 Route::delete('/item-exits/delete/{id}', [ItemExitController::class, 'delete']);
+
+Route::get('/stock-reports', [StockReportController::class, 'index']);
+Route::get('/stock-reports/export', [StockReportController::class, 'exportPDF']);

@@ -1,33 +1,24 @@
 @extends('layouts.main')
 
 @section('content')
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                title: "Success",
-                text: "{{ session('success') }}",
-                icon: "success"
-            });
-        </script>
-    @endif
-    @if (session('error'))
-        <script>
-            Swal.fire({
-                title: "Error",
-                text: "{{ session('error') }}",
-                icon: "error"
-            });
-        </script>
-    @endif
+    {{-- Alert Component --}}
+    @include('layouts.alert')
 
     <div class="overview">
-        <div class="title">
-            <i class="uil uil-grids"></i>
-            <span class="text">Item Exits</span>
-        </div>
-        <div class="add-category-container">
-            <a href="/item-exits/create" class="btn-add-category">Add Item Exit</a>
-        </div>
+        {{-- Page Header Component --}}
+        @include('layouts.header', [
+            'icon' => 'uil uil-arrow-circle-up',
+            'title' => 'Item Exits',
+            'addButtonText' => 'Add Item Exit',
+            'addButtonLink' => '/item-exits/create',
+        ])
+
+        {{-- Search Box --}}
+        @include('layouts.search-box', [
+            'action' => '/item-exits',
+            'placeholder' => 'Search item exit...',
+        ])
+
         <div class="table-container">
             <table>
                 <thead>
@@ -66,24 +57,10 @@
                 </tbody>
             </table>
         </div>
-        <div id="deleteModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Delete Confirmation</h5>
-                    <button class="btn-close" onclick="closeDeleteModal()">&times;</button>
-                </div>
-                <div class="modal-body">
-                    Are you sure to delete <strong id="deleteItemName"></strong> ?
-                </div>
-                <div class="modal-footer">
-                    <form id="deleteForm" method="POST" action="">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
-                        <button type="submit" class="btn-delete">Delete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        {{-- Pagination --}}
+        @include('layouts.pagination', ['paginator' => $itemExits])
+
+        {{-- Delete Modal --}}
+        @include('layouts.delete-modal')
     </div>
 @endsection

@@ -18,7 +18,7 @@ class CategoryController extends Controller
         }
 
         // Eksekusi query dengan pagination
-        $categories = $categories->paginate(15);
+        $categories = $categories->paginate(10);
 
         // Kirim data ke view
         return view('pages.categories.index', compact('categories'));

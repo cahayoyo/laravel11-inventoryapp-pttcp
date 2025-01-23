@@ -20,7 +20,7 @@ class ClientController extends Controller
         }
 
         // Eksekusi query dengan pagination
-        $clients = $clients->paginate(15);
+        $clients = $clients->paginate(10);
 
         // Kirim data ke view
         return view('pages.clients.index', compact('clients'));

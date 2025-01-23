@@ -18,7 +18,7 @@ class VendorController extends Controller
         }
 
         // Eksekusi query dengan pagination
-        $vendors = $vendors->paginate(15);
+        $vendors = $vendors->paginate(10);
 
         // Kirim data ke view
         return view('pages.vendors.index', compact('vendors'));

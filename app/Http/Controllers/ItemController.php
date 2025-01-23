@@ -22,7 +22,7 @@ class ItemController extends Controller
         }
 
         // Load relations untuk category dan unit
-        $items = $items->with(['category', 'unit'])->paginate(20);
+        $items = $items->with(['category', 'unit'])->paginate(10);
 
         // Kirim data ke view
         return view('pages.items.index', compact('items'));

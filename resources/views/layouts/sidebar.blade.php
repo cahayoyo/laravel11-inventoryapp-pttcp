@@ -67,6 +67,12 @@
                 <span class="link-name">Item Exit</span>
             </a>
         </li>
+        <li>
+            <a href="/stock-reports">
+                <i class="uil uil-chart"></i>
+                <span class="link-name">Stock Reports</span>
+            </a>
+        </li>
     </ul>
 
     <ul class="logout-mode">

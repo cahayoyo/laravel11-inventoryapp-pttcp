@@ -1,35 +1,24 @@
 @extends('layouts.main')
 
 @section('content')
-    {{-- sweetalert popup success --}}
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                title: "Success",
-                text: "{{ session('success') }}",
-                icon: "success"
-            });
-        </script>
-    @endif
-    {{-- sweetalert popup error --}}
-    @if (session('error'))
-        <script>
-            Swal.fire({
-                title: "Error",
-                text: "{{ session('error') }}",
-                icon: "error"
-            });
-        </script>
-    @endif
+    {{-- Alert Component --}}
+    @include('layouts.alert')
 
     <div class="overview">
-        <div class="title">
-            <i class="uil uil-grids"></i>
-            <span class="text">Vendors</span>
-        </div>
-        <div class="add-category-container">
-            <a href="/vendors/create" class="btn-add-category">Add Vendor</a>
-        </div>
+        {{-- Page Header Component --}}
+        @include('layouts.header', [
+            'icon' => 'uil uil-store',
+            'title' => 'Vendor',
+            'addButtonText' => 'Add Vendor',
+            'addButtonLink' => '/vendors/create',
+        ])
+
+        {{-- Search Box --}}
+        @include('layouts.search-box', [
+            'action' => '/vendors',
+            'placeholder' => 'Search vendor...',
+        ])
+
         <div class="table-container">
             <table>
                 <thead>
@@ -62,25 +51,11 @@
                 </tbody>
             </table>
         </div>
-        <div id="deleteModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Delete Confirmation</h5>
-                    <button class="btn-close" onclick="closeDeleteModal()">&times;</button>
-                </div>
-                <div class="modal-body">
-                    Are you sure to delete <strong id="deleteItemName"></strong> ?
-                </div>
-                <div class="modal-footer">
-                    <form id="deleteForm" method="POST" action="">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
-                        <button type="submit" class="btn-delete">Delete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        {{-- Pagination --}}
+        @include('layouts.pagination', ['paginator' => $vendors])
+
+        {{-- Delete Modal --}}
+        @include('layouts.delete-modal')
 
     </div>
 @endsection
