@@ -52,13 +52,13 @@
                     <span class="link-name">IPA Baja</span>
                 </a>
             </li>
-            <li>
-                <a href="/projects">
-                    <i class="uil uil-bag"></i>
-                    <span class="link-name">Projects</span>
-                </a>
-            </li>
         @endif
+        <li>
+            <a href="/projects">
+                <i class="uil uil-bag"></i>
+                <span class="link-name">Projects</span>
+            </a>
+        </li>
         <li>
             <a href="/item-entries">
                 <i class="uil uil-arrow-circle-down"></i>

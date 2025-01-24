@@ -21,6 +21,11 @@ Route::middleware(['checkLogin'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'indexLogin']);
+    Route::post('/login', [AuthController::class, 'login']);
+});
+
 // Routes untuk superadmin
 Route::middleware(['checkLogin', 'role:superadmin'])->group(function () {
     Route::get('/categories', [CategoryController::class, 'index']);
@@ -57,16 +62,16 @@ Route::middleware(['checkLogin', 'role:superadmin'])->group(function () {
     Route::get('/ipabajas/edit/{id}', [IpaBajaController::class, 'edit']);
     Route::put('/ipabajas/{id}', [IpaBajaController::class, 'update']);
     Route::delete('/ipabajas/delete/{id}', [IpaBajaController::class, 'delete']);
+});
 
+Route::middleware(['checkLogin', 'role:admin,owner,superadmin'])->group(function () {
     Route::get('/projects', [ProjectController::class, 'index']);
     Route::get('/projects/create', [ProjectController::class, 'create']);
     Route::post('/projects/store', [ProjectController::class, 'store']);
     Route::get('/projects/edit/{id}', [ProjectController::class, 'edit']);
     Route::put('/projects/{id}', [ProjectController::class, 'update']);
     Route::delete('/projects/delete/{id}', [ProjectController::class, 'delete']);
-});
 
-Route::middleware(['checkLogin', 'role:admin,owner,superadmin'])->group(function () {
     Route::get('/items', [ItemController::class, 'index']);
     Route::get('/items/create', [ItemController::class, 'create']);
     Route::post('/items/store', [ItemController::class, 'store']);
@@ -90,9 +95,4 @@ Route::middleware(['checkLogin', 'role:admin,owner,superadmin'])->group(function
 
     Route::get('/stock-reports', [StockReportController::class, 'index']);
     Route::get('/stock-reports/export', [StockReportController::class, 'exportPDF']);
-});
-
-Route::middleware('authenticated')->group(function () {
-    Route::get('/login', [AuthController::class, 'indexLogin']);
-    Route::post('/login', [AuthController::class, 'login']);
 });
