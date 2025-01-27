@@ -16,7 +16,8 @@ class CheckRole
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         if (!in_array($request->user()->role, $roles)) {
-            return response()->view('pages.errors.403', [], 403);
+            // return response()->view('pages.errors.403', [], 403);
+            return back();
         }
         return $next($request);
     }

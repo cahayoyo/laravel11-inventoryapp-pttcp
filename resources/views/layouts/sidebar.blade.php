@@ -77,6 +77,12 @@
                 <span class="link-name">Stock Reports</span>
             </a>
         </li>
+        <li>
+            <a href="/stock-transactions">
+                <i class="uil uil-chart"></i>
+                <span class="link-name">Trans Reports</span>
+            </a>
+        </li>
     </ul>
 
     <ul class="logout-mode">

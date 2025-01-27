@@ -11,6 +11,7 @@ use App\Http\Controllers\ItemExitController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\StockReportController;
+use App\Http\Controllers\StockTransactionController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
@@ -95,4 +96,7 @@ Route::middleware(['checkLogin', 'role:admin,owner,superadmin'])->group(function
 
     Route::get('/stock-reports', [StockReportController::class, 'index']);
     Route::get('/stock-reports/export', [StockReportController::class, 'exportPDF']);
+
+    Route::get('/stock-transactions', [StockTransactionController::class, 'index']);
+    Route::get('/stock-transactions/export', [StockTransactionController::class, 'exportPDF']);
 });

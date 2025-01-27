@@ -50,7 +50,7 @@
                 </thead>
                 <tbody>
                     @foreach ($items as $index => $item)
-                        <tr style="{{ $item->stock <= 10 ? 'background-color: #ff9999;' : '' }}">
+                        <tr class="{{ $item->stock <= 10 ? 'table-danger' : '' }}">
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->category->name }}</td>
@@ -73,34 +73,6 @@
 
 @section('styles')
     <style>
-        .table-danger {
-            background-color: #ff9999 !important;
-        }
 
-        .badge {
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-size: 12px;
-        }
-
-        .badge-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .badge-success {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            margin-right: 10px;
-        }
-
-        .checkbox-wrapper input {
-            margin-right: 5px;
-        }
     </style>
 @endsection
