@@ -26,6 +26,9 @@ class DashboardController extends Controller
         $ipaBajaCount = IpaBaja::count();
         $itemExitCount = ItemExit::count();
         $itemEntryCount = ItemEntry::count();
+        $projects = Project::with(['ipabaja', 'client'])
+            ->orderBy('deadline', 'asc')
+            ->paginate(5);
         $itemEntries = ItemEntry::with(['item', 'vendor'])
             ->orderBy('entry_date', 'desc')
             ->paginate(5);
@@ -33,6 +36,6 @@ class DashboardController extends Controller
             ->orderBy('exit_date', 'desc')
             ->paginate(5);
 
-        return view('pages.dashboard.index', compact('categoryCount', 'unitCount', 'itemCount', 'vendorCount', 'clientCount', 'projectCount', 'ipaBajaCount', 'itemEntryCount', 'itemExits', 'itemExitCount', 'itemEntries'));
+        return view('pages.dashboard.index', compact('categoryCount', 'unitCount', 'itemCount', 'vendorCount', 'clientCount', 'projectCount', 'ipaBajaCount', 'itemEntryCount', 'itemExits', 'itemExitCount', 'itemEntries', 'projects'));
     }
 }

@@ -41,8 +41,7 @@ class ItemController extends Controller
         $validated = $request->validate([
             "name" => "required|unique:items,name",
             "code" => "required|unique:items,code",
-            "price" => "required|numeric|min:0",
-            "stock" => "required|numeric|min:0",
+            "stock" => "nullable|numeric|min:0",
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048",
             "category_id" => "required|exists:categories,id",
             "unit_id" => "required|exists:units,id"
@@ -51,10 +50,6 @@ class ItemController extends Controller
             "name.unique" => "Item Name Already Exists",
             "code.required" => "Item Code Required",
             "code.unique" => "Item Code Already Exists",
-            "price.required" => "Item Price Required",
-            "price.numeric" => "Price must be a number",
-            "price.min" => "Price cannot be negative",
-            "stock.required" => "Item Stock Required",
             "stock.numeric" => "Stock must be a number",
             "stock.min" => "Stock cannot be negative",
             "category_id.required" => "Item Category Required",
@@ -67,16 +62,6 @@ class ItemController extends Controller
         ]);
 
         $data = $request->all();
-
-        // // Handle image upload
-        // if ($request->hasFile('image')) {
-        //     $image = $request->file('image');
-        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
-        //     $image->storeAs('public/images', $imageName);
-        //     $data['image'] = $imageName;
-        // } else {
-        //     $data['image'] = 'default.png'; // Default image
-        // }
 
         if ($request->hasFile('image')) {
             try {
@@ -99,7 +84,7 @@ class ItemController extends Controller
                 return redirect()->back()->with('error', 'Image upload failed');
             }
         } else {
-            $data['image'] = 'default.png';
+            $data['image'] = 'defaultitem.png';
         }
 
         $item = new Item();
@@ -126,18 +111,13 @@ class ItemController extends Controller
         $validated = $request->validate([
             "name" => "required",
             "code" => "required",
-            "price" => "required|numeric|min:0",
-            "stock" => "required|numeric|min:0",
+            "stock" => "nullable|numeric|min:0",
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048",
             "category_id" => "required|exists:categories,id",
             "unit_id" => "required|exists:units,id"
         ], [
             "name.required" => "Item Name Required",
             "code.required" => "Item Code Required",
-            "price.required" => "Item Price Required",
-            "price.numeric" => "Price must be a number",
-            "price.min" => "Price cannot be negative",
-            "stock.required" => "Item Stock Required",
             "stock.numeric" => "Stock must be a number",
             "stock.min" => "Stock cannot be negative",
             "category_id.required" => "Item Category Required",
@@ -152,7 +132,9 @@ class ItemController extends Controller
         $data = $request->all();
         // Handle image upload
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete('images/' . $item->image);
+            if ($item->image !== 'defaultitem.png') {
+                Storage::disk('public')->delete('images/' . $item->image);
+            }
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             Storage::disk('public')->put('images/' . $imageName, file_get_contents($image));
@@ -174,7 +156,9 @@ class ItemController extends Controller
 
         // Hapus file gambar jika ada
         if ($item->image && Storage::disk('public')->exists('images/' . $item->image)) {
-            Storage::disk('public')->delete('images/' . $item->image);
+            if ($item->image !== 'defaultitem.png') {
+                Storage::disk('public')->delete('images/' . $item->image);
+            }
         }
 
         $item->delete(); // Hapus item dari database

@@ -37,7 +37,7 @@
                             <td>
                                 @if ($ipaBaja->image)
                                     <img src="{{ asset('storage/images/' . $ipaBaja->image) }}" alt="{{ $ipaBaja->name }}"
-                                        style="max-height: 100px; width: auto;">
+                                        style="max-height: 250px; width: auto;">
                                 @else
                                     No Image
                                 @endif

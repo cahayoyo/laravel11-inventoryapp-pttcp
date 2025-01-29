@@ -32,7 +32,9 @@
                         <th>Quantity</th>
                         <th>Entry Date</th>
                         <th>Description</th>
-                        <th>Action</th>
+                        @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
+                            <th>Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -48,11 +50,13 @@
                             <td>{{ \Carbon\Carbon::parse($entry->entry_date)->format('d M Y') }}</td>
                             <td>{{ $entry->description ?? '-' }}</td>
                             <td>
-                                <div>
-                                    <a href="/item-entries/edit/{{ $entry->id }}" class="btn-edit">Edit</a>
-                                    <button type="button" class="btn-delete"
-                                        onclick="openDeleteModal({{ $entry->id }}, '{{ $entry->reference_number }}','/item-entries/delete/{{ $entry->id }}')">Delete</button>
-                                </div>
+                                @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
+                                    <div>
+                                        <a href="/item-entries/edit/{{ $entry->id }}" class="btn-edit">Edit</a>
+                                        <button type="button" class="btn-delete"
+                                            onclick="openDeleteModal({{ $entry->id }}, '{{ $entry->reference_number }}','/item-entries/delete/{{ $entry->id }}')">Delete</button>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

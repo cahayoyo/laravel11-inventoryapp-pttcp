@@ -23,7 +23,6 @@ class ItemSeeder extends Seeder
             DB::table('items')->insert([
                 'name' => $this->generateItemName(),
                 'code' => 'ITEM-' . str_pad($i, 4, '0', STR_PAD_LEFT),
-                'price' => $faker->randomFloat(2, 100, 10000),
                 'stock' => $faker->numberBetween(10, 500),
                 'image' => 'LogoTCPBiru.png',
                 'category_id' => $faker->randomElement($categories),

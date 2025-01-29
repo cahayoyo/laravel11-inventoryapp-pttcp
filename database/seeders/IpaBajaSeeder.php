@@ -14,11 +14,11 @@ class IpaBajaSeeder extends Seeder
     public function run(): void
     {
         $ipabajas = [
-            ['name' => 'IPA Baja 10 Liter / Detik', 'image' => 'default.png'],
-            ['name' => 'IPA Baja 20 Liter / Detik', 'image' => 'default.png'],
-            ['name' => 'IPA Baja 30 Liter / Detik', 'image' => 'default.png'],
-            ['name' => 'IPA Baja 40 Liter / Detik', 'image' => 'default.png'],
-            ['name' => 'IPA Baja 50 Liter / Detik', 'image' => 'default.png',],
+            ['name' => 'IPA Baja 10 Liter / Detik', 'image' => 'ipabaja10.png'],
+            ['name' => 'IPA Baja 20 Liter / Detik', 'image' => 'ipabaja20.png'],
+            ['name' => 'IPA Baja 30 Liter / Detik', 'image' => 'ipabaja30.png'],
+            ['name' => 'IPA Baja 40 Liter / Detik', 'image' => 'ipabaja40.png'],
+            ['name' => 'IPA Baja 50 Liter / Detik', 'image' => 'ipabaja50.png',],
 
         ];
 

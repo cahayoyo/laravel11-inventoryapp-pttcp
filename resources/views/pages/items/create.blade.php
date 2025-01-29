@@ -72,15 +72,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="price">Price</label>
-                    <input type="number" id="price" name="price" placeholder="Enter price..." required
-                        class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}">
-                    @error('price')
-                        <span class="invalid-feedback">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
                     <label for="stock">Stock</label>
                     <input type="number" id="stock" name="stock" placeholder="Enter stock..." required
                         class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock') }}">

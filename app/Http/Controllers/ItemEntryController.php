@@ -102,15 +102,6 @@ class ItemEntryController extends Controller
             $item->increment('stock', $validatedData['quantity']);  // Mengurangi stok berdasarkan kuantitas baru
         });
 
-        // DB::transaction(function () use ($validatedData, $itementry) {
-        //     // Update stok produk
-        //     $item = Item::findOrFail($validatedData['item_id']);
-        //     // Kurangi stok dari entri lama
-        //     $item->decrement('stock', $itementry->quantity);
-        //     // Update stok item
-        //     $item->increment('stock', $validatedData['quantity']);
-        // });
-
         $itementry->fill($request->all());;
         $itementry->save();
 

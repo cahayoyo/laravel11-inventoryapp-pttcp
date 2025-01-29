@@ -14,18 +14,20 @@ class UnitSeeder extends Seeder
     public function run(): void
     {
         $units = [
-            'Meter (m)',
-            'Kilogram (kg)',
-            'Liter (L)',
-            'Unit',
-            'Set',
-            'Pcs',
-            'Roll',
-            'Kubik (m³)',
-            'Milimeter (mm)',
-            'Centimeter (cm)',
-            'Kiloliter (kL)',
-            'Ton',
+            'm',
+            'm²',
+            'm³',
+            'cm',
+            'kg',
+            'ton',
+            'liter',
+            'pcs',
+            'item',
+            'buah',
+            'unit',
+            'set',
+            'roll',
+            'lot'
         ];
 
         foreach ($units as $unit) {

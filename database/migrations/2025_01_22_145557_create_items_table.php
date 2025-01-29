@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->bigInteger('price');
-            $table->integer('stock');
-            $table->string('image')->nullable()->default('image_item');
+            $table->integer('stock')->nullable()->default(0);
+            $table->string('image')->nullable()->default('defaultitem.png');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('unit_id');
             $table->timestamps();

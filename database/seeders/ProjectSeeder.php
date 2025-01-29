@@ -29,6 +29,7 @@ class ProjectSeeder extends Seeder
                 'ipa_baja_id' => $faker->randomElement($ipaBajaIds),
                 'client_id' => $faker->randomElement($clientIds),
                 'status' => $faker->randomElement($statuses),
+                'deadline' => $faker->date(),
                 'created_at' => now(),
                 'updated_at' => now()
             ];

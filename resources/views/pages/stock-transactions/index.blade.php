@@ -9,6 +9,12 @@
             'addButtonLink' => '/stock-transactions/export?' . http_build_query(request()->all()),
         ])
 
+        @if (auth()->user()->role === 'owner')
+            <div class="add-container">
+                <a href="/stock-transactions/export?" class="btn-add">Print PDF</a>
+            </div>
+        @endif
+
         <div class="report-filters">
             <form action="{{ url('/stock-transactions') }}" method="GET" class="search-form">
                 <div class="search-wrapper">

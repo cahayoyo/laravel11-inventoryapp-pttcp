@@ -11,6 +11,11 @@
                 (request('category') == 0 ? '' : request('category')) .
                 (request('kritical') ? '&kritical=1' : ''),
         ])
+        @if (auth()->user()->role === 'owner')
+            <div class="add-container">
+                <a href="/stock-reports/export?category=" class="btn-add">Print PDF</a>
+            </div>
+        @endif
 
         <div class="report-filters mb-3">
             <form action="{{ url('/stock-reports') }}" method="GET" class="search-form">
@@ -18,7 +23,8 @@
                     <select name="category" class="search-input">
                         <option value="0">All Categories</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                            <option value="{{ $category->id }}"
+                                {{ request('category') == $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
                             </option>
                         @endforeach

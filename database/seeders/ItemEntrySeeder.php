@@ -25,7 +25,7 @@ class ItemEntrySeeder extends Seeder
             $quantity = $faker->numberBetween(10, 500);
             $itemId = $faker->randomElement($itemIds);
             $item = DB::table('items')->find($itemId);
-            $totalPrice = $quantity * $item->price;
+            $totalPrice = $faker->numberBetween(100000, 1000000);
 
             $itemEntries[] = [
                 'reference_number' => 'TCP-IN-' . $faker->unique()->numberBetween(1000, 9999),

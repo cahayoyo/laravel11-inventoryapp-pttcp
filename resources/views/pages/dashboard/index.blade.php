@@ -28,52 +28,93 @@
             <span class="text">Dashboard</span>
         </div>
         <div class="boxes">
-            <div class="box box1">
-                <i class="uil uil-grids"></i>
-                <span class="text">Total Category</span>
-                <span class="number">{{ $categoryCount }}</span>
-            </div>
-            <div class="box box2">
-                <i class="uil uil-pathfinder-unite"></i>
-                <span class="text">Total Unit</span>
-                <span class="number">{{ $unitCount }}</span>
-            </div>
-            <div class="box box3">
-                <i class="uil uil-table"></i>
-                <span class="text">Total Item</span>
-                <span class="number">{{ $itemCount }}</span>
-            </div>
-            <div class="box box1">
-                <i class="uil uil-store"></i>
-                <span class="text">Total Vendor</span>
-                <span class="number">{{ $vendorCount }}</span>
-            </div>
-            <div class="box box2">
-                <i class="uil uil-users-alt"></i>
-                <span class="text">Total Client</span>
-                <span class="number">{{ $clientCount }}</span>
-            </div>
-            <div class="box box3">
-                <i class="uil uil-tear"></i>
-                <span class="text">Total IPA Baja</span>
-                <span class="number">{{ $ipaBajaCount }}</span>
-            </div>
-            <div class="box box1">
-                <i class="uil uil-bag"></i>
-                <span class="text">Total Project</span>
-                <span class="number">{{ $projectCount }}</span>
-            </div>
-            <div class="box box2">
-                <i class="uil uil-arrow-circle-down"></i>
-                <span class="text">Total Item Entry</span>
-                <span class="number">{{ $itemEntryCount }}</span>
-            </div>
-            <div class="box box3">
-                <i class="uil uil-arrow-circle-up"></i>
-                <span class="text">Total Item Exit</span>
-                <span class="number">{{ $itemExitCount }}</span>
-            </div>
+            @if (auth()->user()->role === 'superadmin')
+                <div class="box box1">
+                    <i class="uil uil-grids"></i>
+                    <span class="text">Total Category</span>
+                    <span class="number">{{ $categoryCount }}</span>
+                </div>
+                <div class="box box2">
+                    <i class="uil uil-pathfinder-unite"></i>
+                    <span class="text">Total Unit</span>
+                    <span class="number">{{ $unitCount }}</span>
+                </div>
+            @endif
+            @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
+                <div class="box box3">
+                    <i class="uil uil-table"></i>
+                    <span class="text">Total Item</span>
+                    <span class="number">{{ $itemCount }}</span>
+                </div>
+            @endif
+            @if (auth()->user()->role === 'superadmin')
+                <div class="box box1">
+                    <i class="uil uil-store"></i>
+                    <span class="text">Total Vendor</span>
+                    <span class="number">{{ $vendorCount }}</span>
+                </div>
+                <div class="box box2">
+                    <i class="uil uil-users-alt"></i>
+                    <span class="text">Total Client</span>
+                    <span class="number">{{ $clientCount }}</span>
+                </div>
+                <div class="box box3">
+                    <i class="uil uil-tear"></i>
+                    <span class="text">Total IPA Baja</span>
+                    <span class="number">{{ $ipaBajaCount }}</span>
+                </div>
+            @endif
+            @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
+                <div class="box box1">
+                    <i class="uil uil-bag"></i>
+                    <span class="text">Total Project</span>
+                    <span class="number">{{ $projectCount }}</span>
+                </div>
+                <div class="box box2">
+                    <i class="uil uil-arrow-circle-down"></i>
+                    <span class="text">Total Item Entry</span>
+                    <span class="number">{{ $itemEntryCount }}</span>
+                </div>
+                <div class="box box3">
+                    <i class="uil uil-arrow-circle-up"></i>
+                    <span class="text">Total Item Exit</span>
+                    <span class="number">{{ $itemExitCount }}</span>
+                </div>
+            @endif
         </div>
+        @if (auth()->user()->role === 'owner')
+            <div class="title">
+                <i class="uil uil-bag"></i>
+                <span class="text">Ongoing Projects</span>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Project Name</th>
+                            <th>Project Value</th>
+                            <th>Location</th>
+                            <th>IPA Baja</th>
+                            <th>Project Deadline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($projects as $project)
+                            <tr>
+                                <td>{{ ($projects->currentPage() - 1) * $projects->perPage() + $loop->index + 1 }}
+                                </td>
+                                <td>{{ $project->name }}</td>
+                                <td>Rp {{ number_format($project->project_value, 0, ',', '.') }}</td>
+                                <td>{{ $project->location }}</td>
+                                <td>{{ $project->ipabaja->name }}</td>
+                                <td>{{ \Carbon\Carbon::parse($project->deadline)->format('d M Y') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
         <div class="title">
             <i class="uil uil-arrow-circle-down"></i>
             <span class="text">Latest Incoming Items</span>
@@ -96,7 +137,8 @@
                 <tbody>
                     @foreach ($itemEntries as $entry)
                         <tr>
-                            <td>{{ ($itemEntries->currentPage() - 1) * $itemEntries->perPage() + $loop->index + 1 }}</td>
+                            <td>{{ ($itemEntries->currentPage() - 1) * $itemEntries->perPage() + $loop->index + 1 }}
+                            </td>
                             <td>{{ $entry->reference_number }}</td>
                             <td>{{ $entry->item->name }}</td>
                             <td>{{ $entry->vendor->name }}</td>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('status', ['ongoing', 'finished']);
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('ipa_baja_id');
+            $table->date('deadline');
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients');

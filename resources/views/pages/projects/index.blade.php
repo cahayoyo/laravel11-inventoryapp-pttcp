@@ -30,7 +30,9 @@
                         <th>Project Client</th>
                         <th>IPA Baja</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
+                            <th>Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -48,11 +50,13 @@
                                 </span>
                             </td>
                             <td>
-                                <div>
-                                    <a href="/projects/edit/{{ $project->id }}" class="btn-edit">Edit</a>
-                                    <button type="button" class="btn-delete"
-                                        onclick="openDeleteModal({{ $project->id }}, '{{ $project->name }}','/projects/delete/{{ $project->id }}')">Delete</button>
-                                </div>
+                                @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
+                                    <div>
+                                        <a href="/projects/edit/{{ $project->id }}" class="btn-edit">Edit</a>
+                                        <button type="button" class="btn-delete"
+                                            onclick="openDeleteModal({{ $project->id }}, '{{ $project->name }}','/projects/delete/{{ $project->id }}')">Delete</button>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

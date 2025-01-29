@@ -31,7 +31,9 @@
                         <th>Quantity</th>
                         <th>Exit Date</th>
                         <th>Description</th>
-                        <th>Action</th>
+                        @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
+                            <th>Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -46,11 +48,13 @@
                             <td>{{ \Carbon\Carbon::parse($exit->exit_date)->format('d M Y') }}</td>
                             <td>{{ $exit->description ?? '-' }}</td>
                             <td>
-                                <div>
-                                    <a href="/item-exits/edit/{{ $exit->id }}" class="btn-edit">Edit</a>
-                                    <button type="button" class="btn-delete"
-                                        onclick="openDeleteModal({{ $exit->id }}, '{{ $exit->reference_number }}','/item-exits/delete/{{ $exit->id }}')">Delete</button>
-                                </div>
+                                @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
+                                    <div>
+                                        <a href="/item-exits/edit/{{ $exit->id }}" class="btn-edit">Edit</a>
+                                        <button type="button" class="btn-delete"
+                                            onclick="openDeleteModal({{ $exit->id }}, '{{ $exit->reference_number }}','/item-exits/delete/{{ $exit->id }}')">Delete</button>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

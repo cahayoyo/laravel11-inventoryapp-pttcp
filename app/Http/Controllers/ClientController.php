@@ -54,16 +54,6 @@ class ClientController extends Controller
 
         $data = $request->all();
 
-        // Handle image upload
-        // if ($request->hasFile('image')) {
-        //     $image = $request->file('image');
-        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
-        //     $image->move(public_path('images/'), $imageName);
-        //     $data['image'] = $imageName;
-        // } else {
-        //     $data['image'] = 'default.png'; // Default image
-        // }
-
         if ($request->hasFile('image')) {
             try {
                 $image = $request->file('image');
@@ -85,7 +75,7 @@ class ClientController extends Controller
                 return redirect()->back()->with('error', 'Image upload failed');
             }
         } else {
-            $data['image'] = 'default.png';
+            $data['image'] = 'defaultclient.png';
         }
 
         $client = new Client();
@@ -125,7 +115,9 @@ class ClientController extends Controller
         $data = $request->all();
         // Handle image upload
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete('images/' . $client->image);
+            if ($client->image !== 'defaultclient.png') {
+                Storage::disk('public')->delete('images/' . $client->image);
+            }
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             Storage::disk('public')->put('images/' . $imageName, file_get_contents($image));
@@ -149,7 +141,9 @@ class ClientController extends Controller
 
             $client->delete();
             if ($client->image && Storage::disk('public')->exists('images/' . $client->image)) {
-                Storage::disk('public')->delete('images/' . $client->image);
+                if ($client->image !== 'defaultclient.png') {
+                    Storage::disk('public')->delete('images/' . $client->image);
+                }
             }
             return redirect('/clients')->with('success', 'Successfully Delete Client');
         } catch (\Illuminate\Database\QueryException $e) {

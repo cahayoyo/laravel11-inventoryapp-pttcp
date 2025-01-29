@@ -14,7 +14,14 @@ use App\Http\Controllers\StockReportController;
 use App\Http\Controllers\StockTransactionController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VendorController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+// Storage Link
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return 'Storage linked successfully';
+});
 
 // Routes untuk semua role
 Route::middleware(['checkLogin'])->group(function () {
