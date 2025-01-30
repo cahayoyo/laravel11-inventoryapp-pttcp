@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Edit Client')
+
 @section('content')
     @if ($errors->all())
         <script>
@@ -31,15 +33,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="code">Item Code</label>
-                    <input type="text" id="code" name="code" placeholder="Enter item code..." required
-                        class="form-control @error('code') is-invalid @enderror" value="{{ old('code', $item->code) }}">
-                    @error('code')
-                        <span class="invalid-feedback">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
                     <label for="category_id">Category</label>
                     <select name="category_id" id="category_id"
                         class="form-control @error('category_id') is-invalid @enderror" required>
@@ -57,6 +50,15 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="stock">Stock</label>
+                    <input type="number" id="stock" name="stock" placeholder="Enter stock..." required
+                        class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock', $item->stock) }}">
+                    @error('stock')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <label for="unit_id">Unit</label>
                     <select name="unit_id" id="unit_id" class="form-control @error('unit_id') is-invalid @enderror"
                         required>
@@ -69,15 +71,6 @@
                         @endforeach
                     </select>
                     @error('unit_id')
-                        <span class="invalid-feedback">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="stock">Stock</label>
-                    <input type="number" id="stock" name="stock" placeholder="Enter stock..." required
-                        class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock', $item->stock) }}">
-                    @error('stock')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>

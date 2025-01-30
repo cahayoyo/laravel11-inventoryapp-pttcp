@@ -24,7 +24,7 @@ class ItemSeeder extends Seeder
                 'name' => $this->generateItemName(),
                 'code' => 'ITEM-' . str_pad($i, 4, '0', STR_PAD_LEFT),
                 'stock' => $faker->numberBetween(10, 500),
-                'image' => 'LogoTCPBiru.png',
+                'image' => 'defaultitem.png',
                 'category_id' => $faker->randomElement($categories),
                 'unit_id' => $faker->randomElement($units),
                 'created_at' => now(),

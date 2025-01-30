@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Stock Transactions')
+
 @section('content')
     <div class="overview">
         @include('layouts.header', [
@@ -8,12 +10,6 @@
             'addButtonText' => 'Print PDF',
             'addButtonLink' => '/stock-transactions/export?' . http_build_query(request()->all()),
         ])
-
-        @if (auth()->user()->role === 'owner')
-            <div class="add-container">
-                <a href="/stock-transactions/export?" class="btn-add">Print PDF</a>
-            </div>
-        @endif
 
         <div class="report-filters">
             <form action="{{ url('/stock-transactions') }}" method="GET" class="search-form">
@@ -37,8 +33,7 @@
                         <th>Date</th>
                         <th>Reference</th>
                         <th>Type</th>
-                        <th>Item Name</th>
-                        <th>Category</th>
+                        <th>Item/Product</th>
                         <th>Unit</th>
                         <th>Quantity</th>
                         <th>Vendor/Client</th>
@@ -49,17 +44,16 @@
                 <tbody>
                     @foreach ($transactions as $index => $trans)
                         <tr>
-                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ date('d/m/Y', strtotime($trans['date'])) }}</td>
                             <td>{{ $trans['reference'] }}</td>
                             <td>
-                                <span class="badge {{ $trans['type'] == 'in' ? 'bg-success' : 'bg-danger' }}">
+                                <span class="badge {{ $trans['type'] == 'in' ? 'badge-success' : 'badge-danger' }}">
                                     {{ ucfirst($trans['type']) }}
                                 </span>
                             </td>
-                            <td>{{ $trans['item']->name }}</td>
-                            <td>{{ $trans['item']->category->name }}</td>
-                            <td>{{ $trans['item']->unit->name }}</td>
+                            <td>{{ $trans['item']->name ?? '-' }}</td>
+                            <td>{{ $trans['item']->unit->name ?? '-' }}</td>
                             <td>{{ $trans['quantity'] }}</td>
                             <td>
                                 @if ($trans['type'] == 'in')
@@ -69,7 +63,7 @@
                                 @endif
                             </td>
                             <td>{{ $trans['project']->name ?? '-' }}</td>
-                            <td>{{ $trans['description'] }}</td>
+                            <td>{{ $trans['description'] ?? '-' }}</td>
                         </tr>
                     @endforeach
                 </tbody>

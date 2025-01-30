@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Create IPA Baja')
+
 @section('content')
     @if ($errors->all())
         <script>

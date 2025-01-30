@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Stock Reports')
+
 @section('content')
     <div class="overview">
         @include('layouts.header', [
@@ -64,9 +66,9 @@
                             <td>{{ $item->stock }}</td>
                             <td>
                                 @if ($item->stock <= 10)
-                                    <span class="badge bg-danger">Low Stock</span>
+                                    <span class="badge badge-danger">Low Stock</span>
                                 @else
-                                    <span class="badge bg-success">Safe Stock</span>
+                                    <span class="badge badge-success">Safe Stock</span>
                                 @endif
                             </td>
                         </tr>

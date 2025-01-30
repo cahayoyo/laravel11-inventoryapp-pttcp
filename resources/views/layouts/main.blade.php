@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
+    <link rel="icon" type="image/png" href="{{ asset('asset/img/LogoTCPBiru.png') }}">
+    <title>@yield('title', 'Dashboard')</title>
     <!-- css -->
-    <link rel="stylesheet" href="{{ asset('asset/css/styleDashboard.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset/css/styleDashboard.css?v=' . time()) }}" />
     <!-- Iconscout CSS -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" />
     {{-- sweetalert --}}

@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Create Project')
+
 @section('content')
     @if ($errors->all())
         <script>
@@ -50,8 +52,8 @@
                 </div>
                 <div class="form-group">
                     <label for="client_id">Client</label>
-                    <select name="client_id" id="client_id" class="form-control @error('client_id') is-invalid @enderror"
-                        required>
+                    <select name="client_id" id="client_id"
+                        class="form-control select-client @error('client_id') is-invalid @enderror" required>
                         <option value="">Select Client</option>
                         @foreach ($clients as $client)
                             <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>
@@ -89,6 +91,16 @@
                         <option value="finished" {{ old('status') == 'finished' ? 'selected' : '' }}>Finished</option>
                     </select>
                     @error('status')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="deadline">Deadline Date</label>
+                    <input type="date" id="deadline" name="deadline" required
+                        class="form-control @error('deadline') is-invalid @enderror"
+                        value="{{ old('deadline', date('Y-m-d')) }}">
+                    @error('deadline')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>

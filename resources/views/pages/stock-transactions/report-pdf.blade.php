@@ -6,6 +6,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
         }
 
         table {
@@ -22,7 +25,7 @@
             font-size: 12px;
         }
 
-        th {
+        s th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
@@ -40,22 +43,17 @@
         .footer {
             position: fixed;
             bottom: 0;
-            width: 100%;
-            text-align: left;
+            left: 0;
+            right: 0;
             background-color: #d3b4eb;
             padding: 10px;
             border-top: 3px solid #4b0082;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
+            border-top: 3px solid #4b0082;
         }
 
         .report-info {
             margin: 20px 0;
             font-size: 14px;
-        }
-
-        .page-break {
-            page-break-after: always;
         }
 
         .total-row {
@@ -66,6 +64,7 @@
 </head>
 
 <body>
+
     <header>
         <div style="text-align: center; font-family: Arial, sans-serif; font-size: 14px;">
             <h2 style="margin: 0; color: red;">PT. TRI CIPTA PATRIOT</h2>
@@ -95,8 +94,7 @@
                 <th>Date</th>
                 <th>Reference</th>
                 <th>Type</th>
-                <th>Item Name</th>
-                <th>Category</th>
+                <th>Item/Product</th>
                 <th>Unit</th>
                 <th>Quantity</th>
                 <th>Vendor/Client</th>
@@ -107,37 +105,35 @@
         <tbody>
             @foreach ($transactions as $index => $trans)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ date('d/m/Y', strtotime($trans['date'])) }}</td>
                     <td>{{ $trans['reference'] }}</td>
                     <td class="type-{{ $trans['type'] }}">
                         {{ ucfirst($trans['type']) }}
                     </td>
-                    <td>{{ $trans['item']->name }}</td>
-                    <td>{{ $trans['item']->category->name }}</td>
-                    <td>{{ $trans['item']->unit->name }}</td>
+                    <td>{{ optional($trans['item'])->name ?? '-' }}</td>
+                    <td>{{ optional($trans['item'])->unit->name ?? '-' }}</td>
                     <td>{{ $trans['quantity'] }}</td>
                     <td>
                         @if ($trans['type'] == 'in')
-                            {{ $trans['vendor']->name }}
+                            {{ $trans['vendor']->name ?? '-' }}
                         @else
-                            {{ $trans['client']->name }}
+                            {{ $trans['client']->name ?? '-' }}
                         @endif
                     </td>
                     <td>{{ $trans['project']->name ?? '-' }}</td>
-                    <td>{{ $trans['description'] }}</td>
+                    <td>{{ $trans['description'] ?? '-' }}</td>
                 </tr>
             @endforeach
-
             {{-- Summary rows --}}
             <tr class="total-row">
-                <td colspan="7" style="text-align: right">Total Stock In:</td>
+                <td colspan="6" style="text-align: right">Total Stock In:</td>
                 <td colspan="4">
                     {{ $transactions->where('type', 'in')->sum('quantity') }} Items
                 </td>
             </tr>
             <tr class="total-row">
-                <td colspan="7" style="text-align: right">Total Stock Out:</td>
+                <td colspan="6" style="text-align: right">Total Stock Out:</td>
                 <td colspan="4">
                     {{ $transactions->where('type', 'out')->sum('quantity') }} Items
                 </td>

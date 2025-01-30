@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Edit Item Entry')
+
 @section('content')
     @if ($errors->all())
         <script>

@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Dashboard')
+
 @section('content')
     {{-- sweetalert popup success --}}
     @if (session('success'))
@@ -59,9 +61,9 @@
                     <span class="number">{{ $clientCount }}</span>
                 </div>
                 <div class="box box3">
-                    <i class="uil uil-tear"></i>
-                    <span class="text">Total IPA Baja</span>
-                    <span class="number">{{ $ipaBajaCount }}</span>
+                    <i class="uil uil-layers"></i>
+                    <span class="text">Total Product</span>
+                    <span class="number">{{ $productCount }}</span>
                 </div>
             @endif
             @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
@@ -162,7 +164,7 @@
                     <tr>
                         <th>No</th>
                         <th>Reference Number</th>
-                        <th>Item</th>
+                        <th>Product</th>
                         <th>Client</th>
                         <th>Project</th>
                         <th>Quantity</th>
@@ -175,7 +177,7 @@
                         <tr>
                             <td>{{ ($itemExits->currentPage() - 1) * $itemExits->perPage() + $loop->index + 1 }}</td>
                             <td>{{ $exit->reference_number }}</td>
-                            <td>{{ $exit->item->name }}</td>
+                            <td>{{ $exit->product->name }}</td>
                             <td>{{ $exit->client->name }}</td>
                             <td>{{ $exit->project->name }}</td>
                             <td>{{ $exit->quantity }}</td>

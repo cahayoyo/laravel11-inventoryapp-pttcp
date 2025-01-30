@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <link rel="icon" type="image/png" href="{{ asset('asset/img/LogoTCPBiru.png') }}">
+    <title>TCP - Login</title>
     <link rel="stylesheet" href="{{ asset('asset/css/styleLogin.css') }}" />
     {{-- sweetalert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

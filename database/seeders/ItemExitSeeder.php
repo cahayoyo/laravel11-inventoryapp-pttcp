@@ -16,20 +16,20 @@ class ItemExitSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        $itemIds = range(1, 10);
+        $productIds = range(1, 5);
         $clientIds = range(1, 10);
         $projectIds = range(1, 10);
 
         $itemExits = [];
         for ($i = 0; $i < 10; $i++) {
-            $itemId = $faker->randomElement($itemIds);
-            $item = DB::table('items')->find($itemId);
+            $productId = $faker->randomElement($productIds);
+            $product = DB::table('products')->find($productId);
 
-            $quantity = $faker->numberBetween(1, $item->stock);
+            $quantity = $faker->numberBetween(1, 5);
 
             $itemExits[] = [
                 'reference_number' => 'TCP-OUT-' . $faker->unique()->numberBetween(1000, 9999),
-                'item_id' => $itemId,
+                'product_id' => $productId,
                 'client_id' => $faker->randomElement($clientIds),
                 'project_id' => $faker->randomElement($projectIds),
                 'quantity' => $quantity,

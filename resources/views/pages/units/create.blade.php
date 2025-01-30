@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Create Unit')
+
 @section('content')
     @if ($errors->all())
         <script>
@@ -13,7 +15,7 @@
 
     <div class="overview">
         <div class="title">
-            <i class="uil uil-grids"></i>
+            <i class="uil uil-pathfinder-unite"></i>
             <span class="text">Create Unit</span>
         </div>
         <div class="form-container">

@@ -12,9 +12,9 @@ class ItemExit extends Model
 
     protected $guarded = [];
 
-    public function item()
+    public function product()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Product::class);
     }
 
     public function project()

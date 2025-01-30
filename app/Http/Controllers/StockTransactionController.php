@@ -15,8 +15,8 @@ class StockTransactionController extends Controller
             ->select('reference_number', 'item_id', 'vendor_id', 'quantity', 'entry_date as date', 'description')
             ->orderBy('entry_date', 'desc');
 
-        $exitsQuery = ItemExit::with(['item.unit', 'item.category', 'client', 'project'])
-            ->select('reference_number', 'item_id', 'client_id', 'project_id', 'quantity', 'exit_date as date', 'description')
+        $exitsQuery = ItemExit::with(['product.unit', 'client', 'project'])
+            ->select('reference_number', 'product_id', 'client_id', 'project_id', 'quantity', 'exit_date as date', 'description')
             ->orderBy('exit_date', 'desc');
 
         $type = $request->input('type', '');
@@ -48,28 +48,17 @@ class StockTransactionController extends Controller
 
     public function exportPDF(Request $request)
     {
+        // Query untuk transaksi masuk (entries)
         $entriesQuery = ItemEntry::with(['item.unit', 'item.category', 'vendor'])
             ->select('reference_number', 'item_id', 'vendor_id', 'quantity', 'entry_date as date', 'description')
             ->orderBy('entry_date', 'desc');
 
-        $exitsQuery = ItemExit::with(['item.unit', 'item.category', 'client', 'project'])
-            ->select('reference_number', 'item_id', 'client_id', 'project_id', 'quantity', 'exit_date as date', 'description')
+        // Query untuk transaksi keluar (exits) dengan relasi product dan unit saja
+        $exitsQuery = ItemExit::with(['product.unit', 'client', 'project'])
+            ->select('reference_number', 'product_id', 'client_id', 'project_id', 'quantity', 'exit_date as date', 'description')
             ->orderBy('exit_date', 'desc');
 
-        if ($request->has('date_start') && $request->has('date_end')) {
-            $entriesQuery->whereBetween('entry_date', [$request->date_start, $request->date_end]);
-            $exitsQuery->whereBetween('exit_date', [$request->date_start, $request->date_end]);
-        }
-
-        if ($request->has('category') && $request->category != '0') {
-            $entriesQuery->whereHas('item', function ($q) use ($request) {
-                $q->where('category_id', $request->category);
-            });
-            $exitsQuery->whereHas('item', function ($q) use ($request) {
-                $q->where('category_id', $request->category);
-            });
-        }
-
+        // Filter berdasarkan tipe transaksi
         $type = $request->input('type', '');
         if ($type === 'in') {
             $transactions = $entriesQuery->get()->map(function ($entry) {
@@ -99,9 +88,10 @@ class StockTransactionController extends Controller
             'type' => $type
         ]);
 
+        $pdf->setPaper('A4', 'landscape');
+
         return $pdf->download('laporan_transaksi_' . date('Y-m-d') . '.pdf');
     }
-
     private function formatEntryData($entry)
     {
         return [
@@ -123,7 +113,7 @@ class StockTransactionController extends Controller
             'date' => $exit->date,
             'type' => 'out',
             'reference' => $exit->reference_number,
-            'item' => $exit->item,
+            'item' => $exit->product,
             'quantity' => $exit->quantity,
             'description' => $exit->description,
             'vendor' => null,

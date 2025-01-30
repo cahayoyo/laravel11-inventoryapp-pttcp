@@ -47,9 +47,10 @@ class ItemEntryController extends Controller
         ]);
 
         DB::transaction(function () use ($validatedData, $request) {
-            // Generate entry number (contoh sederhana)
+            // Generate entry number dengan memulai dari 001
+            $dailyCount = ItemEntry::whereDate('created_at', today())->count();
             $validatedData['reference_number'] = 'TCP-IN-' . date('ymd') . '-' .
-                ItemEntry::whereDate('created_at', today())->count() + 1;
+                str_pad($dailyCount + 1, 3, '0', STR_PAD_LEFT);
 
             // Buat stock entry
             $itemEntry = ItemEntry::create($validatedData);
@@ -101,6 +102,9 @@ class ItemEntryController extends Controller
             $item->decrement('stock', $itementry->quantity);  // Mengembalikan stok lama
             $item->increment('stock', $validatedData['quantity']);  // Mengurangi stok berdasarkan kuantitas baru
         });
+
+        // Hapus reference_number agar tidak diubah
+        unset($validatedData['reference_number']);
 
         $itementry->fill($request->all());;
         $itementry->save();

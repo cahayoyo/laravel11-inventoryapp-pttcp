@@ -8,6 +8,7 @@ use App\Models\IpaBaja;
 use App\Models\Item;
 use App\Models\ItemEntry;
 use App\Models\ItemExit;
+use App\Models\Product;
 use App\Models\Project;
 use App\Models\Unit;
 use App\Models\Vendor;
@@ -23,7 +24,8 @@ class DashboardController extends Controller
         $vendorCount = Vendor::count();
         $clientCount = Client::count();
         $projectCount = Project::count();
-        $ipaBajaCount = IpaBaja::count();
+        $productCount = Product::count();
+        // $ipaBajaCount = IpaBaja::count();
         $itemExitCount = ItemExit::count();
         $itemEntryCount = ItemEntry::count();
         $projects = Project::with(['ipabaja', 'client'])
@@ -32,10 +34,10 @@ class DashboardController extends Controller
         $itemEntries = ItemEntry::with(['item', 'vendor'])
             ->orderBy('entry_date', 'desc')
             ->paginate(5);
-        $itemExits = ItemExit::with(['item', 'project', 'client'])
+        $itemExits = ItemExit::with(['product', 'project', 'client'])
             ->orderBy('exit_date', 'desc')
             ->paginate(5);
 
-        return view('pages.dashboard.index', compact('categoryCount', 'unitCount', 'itemCount', 'vendorCount', 'clientCount', 'projectCount', 'ipaBajaCount', 'itemEntryCount', 'itemExits', 'itemExitCount', 'itemEntries', 'projects'));
+        return view('pages.dashboard.index', compact('categoryCount', 'unitCount', 'itemCount', 'vendorCount', 'clientCount', 'projectCount', 'productCount', 'itemEntryCount', 'itemExits', 'itemExitCount', 'itemEntries', 'projects'));
     }
 }

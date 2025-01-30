@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Edit Item Exits')
+
 @section('content')
     @if ($errors->all())
         <script>
@@ -24,26 +26,26 @@
 
 
                 <div class="form-group">
-                    <label for="item_id">Item</label>
-                    <select name="item_id" id="item_id" class="form-control @error('item_id') is-invalid @enderror"
+                    <label for="product_id">Product</label>
+                    <select name="product_id" id="product_id" class="form-control @error('product_id') is-invalid @enderror"
                         required>
                         <option value="">Select Item</option>
-                        @foreach ($items as $item)
-                            <option value="{{ $item->id }}"
-                                {{ old('item_id', $itemExit->item_id) == $item->id ? 'selected' : '' }}>
-                                {{ $item->name }}
+                        @foreach ($products as $product)
+                            <option value="{{ $product->id }}"
+                                {{ old('product_id', $itemExit->product_id) == $product->id ? 'selected' : '' }}>
+                                {{ $product->name }}
                             </option>
                         @endforeach
                     </select>
-                    @error('item_id')
+                    @error('product_id')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="client_id">Client</label>
-                    <select name="client_id" id="client_id" class="form-control @error('client_id') is-invalid @enderror"
-                        required>
+                    <select name="client_id" id="client_id"
+                        class="form-control select-client @error('client_id') is-invalid @enderror" required>
                         <option value="">Select Client</option>
                         @foreach ($clients as $client)
                             <option value="{{ $client->id }}"

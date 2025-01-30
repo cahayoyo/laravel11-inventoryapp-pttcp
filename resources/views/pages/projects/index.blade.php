@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Projects')
+
 @section('content')
     {{-- Alert Component --}}
     @include('layouts.alert')
@@ -30,6 +32,7 @@
                         <th>Project Client</th>
                         <th>IPA Baja</th>
                         <th>Status</th>
+                        <th>Deadline Date</th>
                         @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
                             <th>Action</th>
                         @endif
@@ -49,6 +52,7 @@
                                     {{ $project->status }}
                                 </span>
                             </td>
+                            <td>{{ \Carbon\Carbon::parse($project->deadline)->format('d M Y') }}</td>
                             <td>
                                 @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
                                     <div>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('item_exits', function (Blueprint $table) {
             $table->id();
             $table->string('reference_number');
-            $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('project_id');
             $table->integer('quantity');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamps();
 
-            $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('project_id')->references('id')->on('projects');
         });

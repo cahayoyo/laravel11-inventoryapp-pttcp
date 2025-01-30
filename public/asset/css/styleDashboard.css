@@ -765,6 +765,11 @@ body.dark .search-input {
     font-size: 12px;
 }
 
+.badge-warning {
+    background-color: #ffc107;
+    color: black;
+}
+
 .badge-danger {
     background-color: #dc3545;
     color: white;
@@ -785,7 +790,13 @@ body.dark .search-input {
     margin-right: 5px;
 }
 
-
+.select-client {
+    width: 400px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
 
 @media (max-width: 1000px){
     nav{

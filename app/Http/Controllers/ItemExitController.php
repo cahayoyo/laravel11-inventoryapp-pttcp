@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Models\Item;
 use App\Models\ItemExit;
+use App\Models\Product;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +20,7 @@ class ItemExitController extends Controller
             $itemExits->where('reference_number', 'like', '%' . request('search') . '%');
         }
 
-        $itemExits = $itemExits->with(['item', 'project', 'client'])
+        $itemExits = $itemExits->with(['product', 'project', 'client'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
@@ -29,17 +29,18 @@ class ItemExitController extends Controller
 
     public function create()
     {
-        $items = Item::all();
+        $products = Product::all();
         $projects = Project::all();
         $clients = Client::all();
 
-        return view('pages.item-exits.create', compact('items', 'projects', 'clients'));
+        return view('pages.item-exits.create', compact('products', 'projects', 'clients'));
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'item_id' => 'required|exists:items,id',
+            'product_id' => 'required|exists:products,id',
+            'client_id' => 'required|exists:clients,id',
             'project_id' => 'required|exists:projects,id',
             'quantity' => 'required|numeric|min:0',
             'exit_date' => 'required|date',
@@ -47,16 +48,17 @@ class ItemExitController extends Controller
         ]);
 
         DB::transaction(function () use ($validatedData, $request) {
-            // Generate entry number (contoh sederhana)
+            // Generate entry number dengan 3 digit
+            $dailyCount = ItemExit::whereDate('created_at', today())->count();
             $validatedData['reference_number'] = 'TCP-OUT-' . date('ymd') . '-' .
-                ItemExit::whereDate('created_at', today())->count() + 1;
+                str_pad($dailyCount + 1, 3, '0', STR_PAD_LEFT);
 
             // Buat stock entry
             $itemExit = ItemExit::create($validatedData);
 
             // Update stok produk
-            $item = Item::findOrFail($validatedData['item_id']);
-            $item->decrement('stock', $validatedData['quantity']);
+            $product = Product::findOrFail($validatedData['product_id']);
+            $product->decrement('stock', $validatedData['quantity']);
         });
 
         return redirect('/item-exits')->with('success', 'Successfully Add new item entry');
@@ -65,11 +67,11 @@ class ItemExitController extends Controller
     public function edit($id)
     {
         $itemExit = ItemExit::findOrFail($id);
-        $items = Item::all();
+        $products = Product::all();
         $projects = Project::all();
         $clients = Client::all();
 
-        return view('pages.item-exits.edit', compact('itemExit', 'items', 'projects', 'clients'));
+        return view('pages.item-exits.edit', compact('itemExit', 'products', 'projects', 'clients'));
     }
 
     public function update(Request $request, $id)
@@ -77,7 +79,8 @@ class ItemExitController extends Controller
         $itemExit = ItemExit::findOrFail($id);
 
         $validatedData = $request->validate([
-            'item_id' => 'required|exists:items,id',
+            'product_id' => 'required|exists:products,id',
+            'client_id' => 'required|exists:clients,id',
             'project_id' => 'required|exists:projects,id',
             'quantity' => 'required|numeric|min:0',
             'exit_date' => 'required|date',
@@ -86,20 +89,23 @@ class ItemExitController extends Controller
 
         DB::transaction(function () use ($validatedData, $itemExit) {
             // Cek apakah item_id berubah
-            if ($itemExit->item_id != $validatedData['item_id']) {
+            if ($itemExit->product_id != $validatedData['product_id']) {
                 // Mengembalikan stok dari entri lama
-                $oldItem = Item::findOrFail($itemExit->item_id);
+                $oldItem = Product::findOrFail($itemExit->product_id);
                 $oldItem->increment('stock', $itemExit->quantity);
 
-                $newItem = Item::findOrFail($validatedData['item_id']);
+                $newItem = Product::findOrFail($validatedData['product_id']);
                 $newItem->decrement('stock', $validatedData['quantity']);
             }
             // Jika item_id tidak berubah, hanya update stok berdasarkan kuantitas baru
-            $item = Item::findOrFail($itemExit->item_id);
+            $product = Product::findOrFail($itemExit->product_id);
             // Mengurangi stok untuk item yang sama dengan jumlah baru
-            $item->increment('stock', $itemExit->quantity);  // Mengembalikan stok lama
-            $item->decrement('stock', $validatedData['quantity']);  // Mengurangi stok berdasarkan kuantitas baru
+            $product->increment('stock', $itemExit->quantity);  // Mengembalikan stok lama
+            $product->decrement('stock', $validatedData['quantity']);  // Mengurangi stok berdasarkan kuantitas baru
         });
+
+        // Hapus reference_number agar tidak diubah
+        unset($validatedData['reference_number']);
 
         $itemExit->fill($request->all());;
         $itemExit->save();
@@ -113,9 +119,9 @@ class ItemExitController extends Controller
         $itemExit = ItemExit::findOrFail($id); // Ambil item berdasarkan ID
         DB::transaction(function () use ($itemExit) {
             // Update stok produk
-            $item = Item::findOrFail($itemExit['item_id']);
+            $product = Product::findOrFail($itemExit['product_id']);
             // Kurangi stok dari entri lama
-            $item->increment('stock', $itemExit->quantity);
+            $product->increment('stock', $itemExit->quantity);
         });
 
         $itemExit->delete(); // Hapus item dari database

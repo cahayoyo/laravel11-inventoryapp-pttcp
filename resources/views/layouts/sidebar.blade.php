@@ -35,6 +35,12 @@
         </li>
         @if (auth()->user()->role === 'superadmin')
             <li>
+                <a href="/products">
+                    <i class="uil uil-layers"></i>
+                    <span class="link-name">Products</span>
+                </a>
+            </li>
+            <li>
                 <a href="/vendors">
                     <i class="uil uil-store"></i>
                     <span class="link-name">Vendors</span>

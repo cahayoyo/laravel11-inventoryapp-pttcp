@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Items')
+
 @section('content')
     {{-- Alert Component --}}
     @include('layouts.alert')
@@ -24,11 +26,11 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Item Name</th>
-                        <th>Item Unit</th>
-                        <th>Item Category</th>
                         <th>Item Code</th>
+                        <th>Item Name</th>
+                        <th>Item Category</th>
                         <th>Item Stock</th>
+                        <th>Item Unit</th>
                         <th>Item Image</th>
                         @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
                             <th>Action</th>
@@ -39,11 +41,11 @@
                     @foreach ($items as $item)
                         <tr>
                             <td>{{ ($items->currentPage() - 1) * $items->perPage() + $loop->index + 1 }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->unit->name }}</td>
-                            <td>{{ $item->category->name }}</td>
                             <td>{{ $item->code }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->category->name }}</td>
                             <td>{{ $item->stock }}</td>
+                            <td>{{ $item->unit->name }}</td>
                             <td><img src="{{ asset('storage/images/' . $item->image) }}" alt="{{ $item->name }}"
                                     style="max-height: 150px; width: auto; object-fit: contain;"></td>
                             <td>

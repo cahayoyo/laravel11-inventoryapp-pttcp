@@ -8,6 +8,7 @@ use App\Http\Controllers\IpaBajaController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemEntryController;
 use App\Http\Controllers\ItemExitController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\StockReportController;
@@ -49,6 +50,13 @@ Route::middleware(['checkLogin', 'role:superadmin'])->group(function () {
     Route::get('/units/edit/{id}', [UnitController::class, 'edit']);
     Route::put('/units/{id}', [UnitController::class, 'update']);
     Route::delete('/units/delete/{id}', [UnitController::class, 'delete']);
+
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/products/create', [ProductController::class, 'create']);
+    Route::post('/products/store', [ProductController::class, 'store']);
+    Route::get('/products/edit/{id}', [ProductController::class, 'edit']);
+    Route::put('/products/{id}', [ProductController::class, 'update']);
+    Route::delete('/products/delete/{id}', [ProductController::class, 'delete']);
 
     Route::get('/vendors', [VendorController::class, 'index']);
     Route::get('/vendors/create', [VendorController::class, 'create']);

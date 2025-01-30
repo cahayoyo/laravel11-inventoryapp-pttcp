@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Units')
+
 @section('content')
     {{-- Alert Component --}}
     @include('layouts.alert')

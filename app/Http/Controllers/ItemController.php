@@ -40,7 +40,6 @@ class ItemController extends Controller
     {
         $validated = $request->validate([
             "name" => "required|unique:items,name",
-            "code" => "required|unique:items,code",
             "stock" => "nullable|numeric|min:0",
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048",
             "category_id" => "required|exists:categories,id",
@@ -48,8 +47,6 @@ class ItemController extends Controller
         ], [
             "name.required" => "Item Name Required",
             "name.unique" => "Item Name Already Exists",
-            "code.required" => "Item Code Required",
-            "code.unique" => "Item Code Already Exists",
             "stock.numeric" => "Stock must be a number",
             "stock.min" => "Stock cannot be negative",
             "category_id.required" => "Item Category Required",
@@ -62,6 +59,15 @@ class ItemController extends Controller
         ]);
 
         $data = $request->all();
+
+        // Ambil item terakhir
+        $lastItem = Item::latest('id')->first();
+
+        // Tentukan nomor baru
+        $newNumber = $lastItem ? intval(substr($lastItem->code, -4)) + 1 : 1;
+
+        // Format kode dengan padding 4 digit
+        $data['code'] = 'ITEM-' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
 
         if ($request->hasFile('image')) {
             try {
@@ -109,15 +115,13 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
 
         $validated = $request->validate([
-            "name" => "required",
-            "code" => "required",
+            "name" => "required|unique:items,name,{$id},id",
             "stock" => "nullable|numeric|min:0",
             "image" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048",
             "category_id" => "required|exists:categories,id",
             "unit_id" => "required|exists:units,id"
         ], [
             "name.required" => "Item Name Required",
-            "code.required" => "Item Code Required",
             "stock.numeric" => "Stock must be a number",
             "stock.min" => "Stock cannot be negative",
             "category_id.required" => "Item Category Required",
@@ -130,6 +134,9 @@ class ItemController extends Controller
         ]);
 
         $data = $request->all();
+
+        unset($data['code']);
+
         // Handle image upload
         if ($request->hasFile('image')) {
             if ($item->image !== 'defaultitem.png') {

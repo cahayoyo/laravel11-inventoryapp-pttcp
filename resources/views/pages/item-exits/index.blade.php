@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Item Exits')
+
 @section('content')
     {{-- Alert Component --}}
     @include('layouts.alert')
@@ -25,7 +27,7 @@
                     <tr>
                         <th>No</th>
                         <th>Reference Number</th>
-                        <th>Item</th>
+                        <th>Product</th>
                         <th>Client</th>
                         <th>Project</th>
                         <th>Quantity</th>
@@ -41,7 +43,7 @@
                         <tr>
                             <td>{{ ($itemExits->currentPage() - 1) * $itemExits->perPage() + $loop->index + 1 }}</td>
                             <td>{{ $exit->reference_number }}</td>
-                            <td>{{ $exit->item->name }}</td>
+                            <td>{{ $exit->product->name }}</td>
                             <td>{{ $exit->client->name }}</td>
                             <td>{{ $exit->project->name }}</td>
                             <td>{{ $exit->quantity }}</td>

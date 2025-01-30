@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'TCP - Create Vendor')
+
 @section('content')
     @if ($errors->all())
         <script>
@@ -13,7 +15,7 @@
 
     <div class="overview">
         <div class="title">
-            <i class="uil uil-grids"></i>
+            <i class="uil uil-store"></i>
             <span class="text">Create Vendor</span>
         </div>
         <div class="form-container">
