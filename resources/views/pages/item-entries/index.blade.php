@@ -54,7 +54,8 @@
                             <td>
                                 @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
                                     <div>
-                                        <a href="/item-entries/edit/{{ $entry->id }}" class="btn-edit">Edit</a>
+                                        <a href="/item-entries/edit/{{ $entry->id }}" class="btn-edit"
+                                            style="margin-bottom: 10px">Edit</a>
                                         <button type="button" class="btn-delete"
                                             onclick="openDeleteModal({{ $entry->id }}, '{{ $entry->reference_number }}','/item-entries/delete/{{ $entry->id }}')">Delete</button>
                                     </div>

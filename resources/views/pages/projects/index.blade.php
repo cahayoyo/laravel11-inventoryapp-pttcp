@@ -56,7 +56,8 @@
                             <td>
                                 @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
                                     <div>
-                                        <a href="/projects/edit/{{ $project->id }}" class="btn-edit">Edit</a>
+                                        <a href="/projects/edit/{{ $project->id }}" class="btn-edit"
+                                            style="margin-bottom: 10px">Edit</a>
                                         <button type="button" class="btn-delete"
                                             onclick="openDeleteModal({{ $project->id }}, '{{ $project->name }}','/projects/delete/{{ $project->id }}')">Delete</button>
                                     </div>

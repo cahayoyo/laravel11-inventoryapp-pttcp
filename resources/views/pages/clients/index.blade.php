@@ -46,7 +46,8 @@
                                     style="max-height: 100px; width: auto; object-fit: contain;"></td>
                             <td>
                                 <div>
-                                    <a href="/clients/edit/{{ $client->id }}" class="btn-edit">Edit</a>
+                                    <a href="/clients/edit/{{ $client->id }}" class="btn-edit"
+                                        style="margin-bottom: 10px">Edit</a>
                                     <button type="button" class="btn-delete"
                                         onclick="openDeleteModal({{ $client->id }}, '{{ $client->name }}','/clients/delete/{{ $client->id }}')">Delete</button>
                                 </div>

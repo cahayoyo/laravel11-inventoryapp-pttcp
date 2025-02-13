@@ -43,7 +43,8 @@
                             <td>{{ $vendor->phone }}</td>
                             <td>
                                 <div>
-                                    <a href="/vendors/edit/{{ $vendor->id }}" class="btn-edit">Edit</a>
+                                    <a href="/vendors/edit/{{ $vendor->id }}" class="btn-edit"
+                                        style="margin-bottom: 10px">Edit</a>
                                     <button type="button" class="btn-delete"
                                         onclick="openDeleteModal({{ $vendor->id }}, '{{ $vendor->name }}','/vendors/delete/{{ $vendor->id }}')">Delete</button>
                                 </div>
