@@ -56,9 +56,10 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         $validated = $request->validate([
-            "name" => "required",
+            "name" => "required|unique:categories,name",
         ], [
             "name.required" => "Category Name Required",
+            "name.unique" => "Category Name Already Exists"
         ]);
 
         $category->fill($request->all());;
