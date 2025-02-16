@@ -20,7 +20,10 @@ class ProjectController extends Controller
         }
 
         // Load relations untuk ipabaja dan client
-        $projects = $projects->with(['ipabaja', 'client'])->paginate(10);
+        $projects = $projects
+            ->with(['ipabaja', 'client'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         // Kirim data ke view
         return view('pages.projects.index', compact('projects'));

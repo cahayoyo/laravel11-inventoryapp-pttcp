@@ -19,26 +19,35 @@
             <span class="text">Create Item Entry</span>
         </div>
         <div class="form-container">
-            <form action="/item-entries/store" method="POST">
-                @csrf
-                @method('POST')
-
-
+            <!-- Form untuk memilih item -->
+            <form action="{{ url()->current() }}" method="GET" class="mb-3">
                 <div class="form-group">
-                    <label for="item_id">Item</label>
-                    <select name="item_id" id="item_id" class="form-control @error('item_id') is-invalid @enderror"
-                        required>
+                    <label for="selected_item">Select Item</label>
+                    <select name="selected_item" id="selected_item" class="form-control" onchange="this.form.submit()">
                         <option value="">Select Item</option>
                         @foreach ($items as $item)
-                            <option value="{{ $item->id }}" {{ old('item_id') == $item->id ? 'selected' : '' }}>
+                            <option value="{{ $item->id }}"
+                                {{ request('selected_item') == $item->id ? 'selected' : '' }}>
                                 {{ $item->name }}
                             </option>
                         @endforeach
                     </select>
-                    @error('item_id')
-                        <span class="invalid-feedback">{{ $message }}</span>
-                    @enderror
                 </div>
+            </form>
+
+            <form action="/item-entries/store" method="POST">
+                @csrf
+                @method('POST')
+
+                <!-- Hidden input untuk item_id -->
+                <input type="hidden" name="item_id" value="{{ request('selected_item') }}">
+
+                <div class="form-group">
+                    <label for="item_name">Item</label>
+                    <input type="text" id="item_name" class="form-control" readonly
+                        value="{{ $selectedItem ? $selectedItem->name : '' }}">
+                </div>
+
 
                 <div class="form-group">
                     <label for="vendor_id">Vendor</label>
@@ -89,6 +98,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="unit">Unit</label>
+                    <input type="text" id="unit" class="form-control" readonly value="{{ $selectedUnit ?? '' }}">
+                </div>
+
+                <div class="form-group">
                     <label for="entry_date">Entry Date</label>
                     <input type="date" id="entry_date" name="entry_date" required
                         class="form-control @error('entry_date') is-invalid @enderror"
@@ -100,7 +114,7 @@
 
                 <div class="form-group">
                     <label for="description">Description <i>(Optional)</i></label>
-                    <textarea id="description" name="description" placeholder="Enter description..."
+                    <textarea id="description" name="description" rows="4" cols="50" placeholder="Enter description..."
                         class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
                     @error('description')
                         <span class="invalid-feedback">{{ $message }}</span>

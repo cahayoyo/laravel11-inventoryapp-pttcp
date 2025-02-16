@@ -16,9 +16,9 @@ class ItemExitSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        $productIds = range(1, 5);
-        $clientIds = range(1, 10);
-        $projectIds = range(1, 10);
+        $productIds = range(1, 4);
+        $clientIds = range(1, 19);
+        $projectIds = range(1, 8);
 
         $itemExits = [];
         for ($i = 0; $i < 10; $i++) {

@@ -14,18 +14,16 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Instalasi Pengolahan Air Baja',
-            'Pipa Distribusi Air',
-            'Tangki Penyimpanan Air',
-            'Pompa Air',
-            'Valve dan Fitting',
-            'Peralatan Pengolahan Air Limbah',
-            'Panel Kontrol Elektrik',
-            'Aksesoris Instalasi Air',
-            'Filter Air Industri',
-            'Sistem Pemurnian Air',
-            'Perangkat Kontrol Kualitas Air',
-            'Komponen Struktur Hidrolik'
+            'Material Konstruksi dan Komponen',
+            'Bahan Kimia',
+            'Polimer dan Koagulan',
+            'Filter Media',
+            'Komponen Elektrikal dan Mekanikal',
+            'Komponen Sistem Sedimentasi',
+            'Komponen Sistem Koagulasi dan Flokulasi',
+            'Komponen Sistem Filtrasi',
+            'Komponen Sistem Desinfeksi',
+            'Peralatan Pengukuran dan Pengendalian'
         ];
 
         foreach ($categories as $category) {

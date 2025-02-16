@@ -44,7 +44,7 @@
                             <td>{{ ($itemExits->currentPage() - 1) * $itemExits->perPage() + $loop->index + 1 }}</td>
                             <td>{{ $exit->reference_number }}</td>
                             <td>{{ $exit->product->name }}</td>
-                            <td>{{ $exit->client->name }}</td>
+                            <td>{{ $exit->project->client->name }}</td>
                             <td>{{ $exit->project->name }}</td>
                             <td>{{ $exit->quantity }}</td>
                             <td>{{ \Carbon\Carbon::parse($exit->exit_date)->format('d M Y') }}</td>

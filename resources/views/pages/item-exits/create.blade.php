@@ -40,25 +40,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="client_id">Client</label>
-                    <select name="client_id" id="client_id"
-                        class="form-control select-client @error('client_id') is-invalid @enderror" required>
-                        <option value="">Select Client</option>
-                        @foreach ($clients as $client)
-                            <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>
-                                {{ $client->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('client_id')
-                        <span class="invalid-feedback">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
                     <label for="project_id">Project</label>
-                    <select name="project_id" id="project_id" class="form-control @error('project_id') is-invalid @enderror"
-                        required>
+                    <select name="project_id" id="project_id"
+                        class="form-control @error('project_id') is-invalid @enderror select-style" required>
                         <option value="">Select Project</option>
                         @foreach ($projects as $project)
                             <option value="{{ $project->id }}" {{ old('project_id') == $project->id ? 'selected' : '' }}>
@@ -92,7 +76,7 @@
 
                 <div class="form-group">
                     <label for="description">Description <i>(Optional)</i></label>
-                    <textarea id="description" name="description" placeholder="Enter description..."
+                    <textarea id="description" name="description" rows="4" cols="50" placeholder="Enter description..."
                         class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
                     @error('description')
                         <span class="invalid-feedback">{{ $message }}</span>

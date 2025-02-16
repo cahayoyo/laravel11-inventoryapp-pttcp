@@ -40,12 +40,26 @@ class ItemExitController extends Controller
     {
         $validatedData = $request->validate([
             'product_id' => 'required|exists:products,id',
-            'client_id' => 'required|exists:clients,id',
             'project_id' => 'required|exists:projects,id',
             'quantity' => 'required|numeric|min:0',
             'exit_date' => 'required|date',
             'description' => 'nullable|string'
         ]);
+
+        // Ambil project berdasarkan project_id
+        $project = Project::findOrFail($validatedData['project_id']);
+
+        // Set client_id dari project yang dipilih
+        $validatedData['client_id'] = $project->client_id;
+
+        // Ambil produk berdasarkan product_id
+        $product = Product::findOrFail($validatedData['product_id']);
+
+        // Cek apakah stok produk cukup
+        if ($product->stock < $validatedData['quantity']) {
+            // Jika stok tidak cukup, berikan pesan error dan kembali ke halaman sebelumnya
+            return redirect()->back()->withErrors(['quantity' => 'Stock produk tidak cukup.'])->withInput();
+        }
 
         DB::transaction(function () use ($validatedData, $request) {
             // Generate entry number dengan 3 digit
@@ -80,15 +94,30 @@ class ItemExitController extends Controller
 
         $validatedData = $request->validate([
             'product_id' => 'required|exists:products,id',
-            'client_id' => 'required|exists:clients,id',
+            // 'client_id' => 'required|exists:clients,id',
             'project_id' => 'required|exists:projects,id',
             'quantity' => 'required|numeric|min:0',
             'exit_date' => 'required|date',
             'description' => 'nullable|string'
         ]);
 
+        // Ambil project berdasarkan project_id yang dipilih
+        $project = Project::findOrFail($validatedData['project_id']);
+
+        // Set client_id dari project yang dipilih, otomatis
+        $validatedData['client_id'] = $project->client_id;
+
+        // Ambil produk berdasarkan product_id
+        $product = Product::findOrFail($validatedData['product_id']);
+
+        // Cek apakah stok produk cukup
+        if ($product->stock < $validatedData['quantity']) {
+            // Jika stok tidak cukup, berikan pesan error dan kembali ke halaman sebelumnya
+            return redirect()->back()->withErrors(['quantity' => 'Stock produk tidak cukup.'])->withInput();
+        }
+
         DB::transaction(function () use ($validatedData, $itemExit) {
-            // Cek apakah item_id berubah
+            // Cek apakah product_id berubah
             if ($itemExit->product_id != $validatedData['product_id']) {
                 // Mengembalikan stok dari entri lama
                 $oldItem = Product::findOrFail($itemExit->product_id);
@@ -107,7 +136,7 @@ class ItemExitController extends Controller
         // Hapus reference_number agar tidak diubah
         unset($validatedData['reference_number']);
 
-        $itemExit->fill($request->all());;
+        $itemExit->fill($validatedData);
         $itemExit->save();
 
 

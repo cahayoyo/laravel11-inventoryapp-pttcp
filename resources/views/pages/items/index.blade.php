@@ -27,8 +27,8 @@
                     <tr>
                         <th>No</th>
                         <th>Item Code</th>
-                        <th>Item Name</th>
                         <th>Item Category</th>
+                        <th>Item Name</th>
                         <th>Item Stock</th>
                         <th>Item Unit</th>
                         <th>Item Image</th>
@@ -42,8 +42,8 @@
                         <tr>
                             <td>{{ ($items->currentPage() - 1) * $items->perPage() + $loop->index + 1 }}</td>
                             <td>{{ $item->code }}</td>
-                            <td>{{ $item->name }}</td>
                             <td>{{ $item->category->name }}</td>
+                            <td>{{ $item->name }}</td>
                             <td>{{ $item->stock }}</td>
                             <td>{{ $item->unit->name }}</td>
                             <td><img src="{{ asset('storage/images/' . $item->image) }}" alt="{{ $item->name }}"

@@ -28,10 +28,22 @@ class ItemEntryController extends Controller
 
     public function create()
     {
-        $items = Item::all();
-        $vendors = Vendor::all();
+        // $items = Item::all();
+        // $vendors = Vendor::all();
 
-        return view('pages.item-entries.create', compact('items', 'vendors'));
+        // return view('pages.item-entries.create', compact('items', 'vendors'));
+
+        $items = Item::with('unit')->get();
+        $vendors = Vendor::all();
+        $selectedItem = null;
+        $selectedUnit = null;
+
+        if (request()->has('selected_item')) {
+            $selectedItem = Item::with('unit')->find(request()->selected_item);
+            $selectedUnit = $selectedItem ? $selectedItem->unit->name : null;
+        }
+
+        return view('pages.item-entries.create', compact('items', 'vendors', 'selectedItem', 'selectedUnit'));
     }
 
     public function store(Request $request)
@@ -65,11 +77,24 @@ class ItemEntryController extends Controller
 
     public function edit($id)
     {
-        $itemEntry = ItemEntry::findOrFail($id);
-        $items = Item::all();
-        $vendors = Vendor::all();
+        // $itemEntry = ItemEntry::findOrFail($id);
+        // $items = Item::all();
+        // $vendors = Vendor::all();
 
-        return view('pages.item-entries.edit', compact('itemEntry', 'items', 'vendors'));
+        // return view('pages.item-entries.edit', compact('itemEntry', 'items', 'vendors'));
+
+        $itemEntry = ItemEntry::with('item.unit')->findOrFail($id);
+        $items = Item::with('unit')->get();
+        $vendors = Vendor::all();
+        $selectedItem = null;
+        $selectedUnit = null;
+
+        if (request()->has('selected_item')) {
+            $selectedItem = Item::with('unit')->find(request()->selected_item);
+            $selectedUnit = $selectedItem ? $selectedItem->unit->name : null;
+        }
+
+        return view('pages.item-entries.edit', compact('itemEntry', 'items', 'vendors', 'selectedItem', 'selectedUnit'));
     }
 
     public function update(Request $request, $id)

@@ -11,7 +11,7 @@
         @include('layouts.header', [
             'icon' => 'uil uil-pathfinder-unite',
             'title' => 'Units',
-            'addButtonText' => 'Add Units',
+            'addButtonText' => 'Add Unit',
             'addButtonLink' => '/units/create',
         ])
 

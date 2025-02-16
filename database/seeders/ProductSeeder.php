@@ -14,11 +14,10 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         $products = [
-            ['name' => 'Koagulator', 'stock' => 10, 'unit_id' => 12],
-            ['name' => 'Flukolator', 'stock' => 10, 'unit_id' => 12],
-            ['name' => 'Sedimentator', 'stock' => 10, 'unit_id' => 12],
-            ['name' => 'Filtrator', 'stock' => 10, 'unit_id' => 12],
-            ['name' => 'Tube Settler', 'stock' => 10, 'unit_id' => 12],
+            ['name' => 'Koagulator', 'stock' => 5, 'unit_id' => 12],
+            ['name' => 'Flokulator', 'stock' => 5, 'unit_id' => 12],
+            ['name' => 'Sedimentator', 'stock' => 5, 'unit_id' => 12],
+            ['name' => 'Filtrator', 'stock' => 5, 'unit_id' => 12],
         ];
 
         foreach ($products as $product) {

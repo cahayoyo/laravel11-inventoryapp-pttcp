@@ -87,14 +87,14 @@ class ClientSeeder extends Seeder
                 'image'   => 'defaultclient.png',
             ],
             [
-                'name'    => 'Kementerian Pekerjaan Umum Dirjen Sumber Daya Air Prov Bangka Belitung',
+                'name'    => 'Kementerian PUPR Prov Bangka Belitung',
                 'email'   => '-',
                 'address' => 'Jl. Mentok No.Km.4, Kace Tim., Kec. Mendo Bar., Kota Pangkal Pinang, Kepulauan Bangka Belitung 33173',
                 'phone'   => '0717434394',
                 'image'   => 'defaultclient.png',
             ],
             [
-                'name'    => 'Kementerian Pekerjaan Umum Dinas Cipta Karya Prov Jawa Barat',
+                'name'    => 'Kementerian PUPR Prov Jawa Barat',
                 'email'   => '-',
                 'address' => 'Jl. Penjernihan 1 No.19 10, RT.10/RW.6, Bend. Hilir, Kecamatan Tanah Abang, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10210',
                 'phone'   => '-',
@@ -115,13 +115,6 @@ class ClientSeeder extends Seeder
                 'image'   => 'defaultclient.png',
             ],
             [
-                'name'    => 'Kementerian Pekerjaan Umum Dirjen Cipta Karya Prov Bangka Belitung',
-                'email'   => 'puprprkp@babelprov.go.id',
-                'address' => 'Jl. RE. Martadinata No.35, Opas Indah, Kec. Taman Sari, Kota Pangkal Pinang, Kepulauan Bangka Belitung 33684',
-                'phone'   => '02172799256',
-                'image'   => 'defaultclient.png',
-            ],
-            [
                 'name'    => 'PDAM Tirta Asasta',
                 'email'   => 'info@tirtaasastadepok.co.id',
                 'address' => 'Jl. Legong Raya No. 1 Kel. Mekarjaya Kec. Sukmajaya Kota Depok',
@@ -129,21 +122,14 @@ class ClientSeeder extends Seeder
                 'image'   => 'defaultclient.png',
             ],
             [
-                'name'    => 'Kementerian Pekerjaan Umum dan Perumahan Rakyat Pengembangan Sistem Penyediaan Air Minum Prov Sulawesi Utara',
+                'name'    => 'Kementerian PUPR Prov Sulawesi Utara',
                 'email'   => '-',
                 'address' => 'Karampuang, Panakkukang, Makassar City, South Sulawesi 90231',
                 'phone'   => '0411441960',
                 'image'   => 'defaultclient.png',
             ],
             [
-                'name'    => 'Kementerian Pekerjaan Umum dan Perumahan Rakyat Satuan Kerja Pelaksanaan Prasarana Permukiman Prov Kepulauan Bangka Belitung',
-                'email'   => 'puprprkp@babelprov.go.id',
-                'address' => 'Ruko THE CITY HALL Blok D6 D7 Kompleks Perkantoran',
-                'phone'   => '0717432719',
-                'image'   => 'defaultclient.png',
-            ],
-            [
-                'name'    => 'Kementerian Pekerjaan Umum dan Perumahan Rakyat Pengembangan Sistem Penyediaan Air Minum Prov Jambi',
+                'name'    => 'Kementerian PUPR Prov Jambi',
                 'email'   => 'bwssumatera6@pu.go.id',
                 'address' => 'Jalan Lintas Timur No. 01, Mendalo Darat, Kota Jambi',
                 'phone'   => '0741445115',
@@ -157,10 +143,17 @@ class ClientSeeder extends Seeder
                 'image'   => 'defaultclient.png',
             ],
             [
-                'name'    => 'Kementerian Pekerjaan Umum dan Perumahan Rakyat Satuan Kerja Pelaksanaan Prasarana Permukiman Wilayah I Prov Sumatera Utara',
+                'name'    => 'Kementerian PUPR Prov Sumatera Utara',
                 'email'   => 'satkerwilayah1bppw@gmail.com',
                 'address' => 'Jl. Gaperta No. 289 Medan',
                 'phone'   => '0618475742',
+                'image'   => 'defaultclient.png',
+            ],
+            [
+                'name'    => 'Perumda Tirta Jaya Mandiri Sukabumi',
+                'email'   => 'perumdaairminumtirtajayamandiri@gmail.com',
+                'address' => 'Jalan Cireundeu No. 5 Karangtengah Cibadak, Kabupaten Sukabumi Jawa Barat',
+                'phone'   => '0266532408',
                 'image'   => 'defaultclient.png',
             ],
         ];

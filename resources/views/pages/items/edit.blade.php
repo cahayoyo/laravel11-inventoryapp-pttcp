@@ -24,15 +24,6 @@
                 @method('PUT')
 
                 <div class="form-group">
-                    <label for="name">Item Name</label>
-                    <input type="text" id="name" name="name" placeholder="Enter item name..." required
-                        class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $item->name) }}">
-                    @error('name')
-                        <span class="invalid-feedback">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
                     <label for="category_id">Category</label>
                     <select name="category_id" id="category_id"
                         class="form-control @error('category_id') is-invalid @enderror" required>
@@ -45,6 +36,15 @@
                         @endforeach
                     </select>
                     @error('category_id')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Item Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter item name..." required
+                        class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $item->name) }}">
+                    @error('name')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
