@@ -21,4 +21,9 @@ class Project extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function scopeOngoing($query)
+    {
+        return $query->where('status', 'ongoing');
+    }
 }

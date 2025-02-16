@@ -56,9 +56,10 @@ class UnitController extends Controller
         $unit = Unit::findOrFail($id);
 
         $validated = $request->validate([
-            "name" => "required",
+            "name" => "required|unique:units,name",
         ], [
             "name.required" => "Unit Name Required",
+            "name.unique" => "Unit Name Already Exists"
         ]);
 
         $unit->fill($request->all());;

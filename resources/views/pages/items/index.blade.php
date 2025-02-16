@@ -47,7 +47,7 @@
                             <td>{{ $item->stock }}</td>
                             <td>{{ $item->unit->name }}</td>
                             <td><img src="{{ asset('storage/images/' . $item->image) }}" alt="{{ $item->name }}"
-                                    style="max-height: 150px; width: auto; object-fit: contain;"></td>
+                                    style="max-height: 150px; width: 200px; object-fit: contain;"></td>
                             <td>
                                 @if (auth()->user()->role === 'superadmin' || auth()->user()->role === 'admin')
                                     <div>

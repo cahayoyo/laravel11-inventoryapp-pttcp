@@ -20,8 +20,34 @@ class ItemExitSeeder extends Seeder
         $clientIds = range(1, 19);
         $projectIds = range(1, 8);
 
+        $descriptions = [
+            // Sedimentator
+            'Pengiriman unit sedimentator untuk instalasi WTP Kawasan Industri Timur',
+            'Dropping sedimentator tank untuk pembangunan plant pengolahan air baru di Site A',
+            'Supply unit sedimentator untuk upgrade kapasitas WTP Regional',
+            'Pengiriman sedimentator sistem untuk proyek water treatment plant kota',
+
+            // Filtrator
+            'Pengiriman unit filtrasi untuk pembangunan WTP Zona 2',
+            'Dropping sistem filtrator untuk upgrade plant pengolahan existing',
+            'Supply unit filtrator untuk penggantian sistem filtrasi lama di WTP Utara',
+            'Pengiriman filtration unit untuk plant baru kapasitas 50 L/s',
+
+            // Koagulator
+            'Pengiriman unit koagulator untuk instalasi water treatment baru',
+            'Dropping rapid mixing unit untuk upgrade sistem koagulasi WTP Regional',
+            'Supply koagulator tank untuk peningkatan kapasitas pengolahan air',
+            'Pengiriman sistem koagulasi untuk pembangunan WTP Kawasan Industri',
+
+            // Flokulator
+            'Pengiriman unit flokulator untuk plant pengolahan air baru',
+            'Dropping mechanical flocculation unit untuk WTP kapasitas 100 L/s',
+            'Supply sistem flokulasi untuk upgrade pengolahan air existing',
+            'Pengiriman flokulator tank untuk pembangunan water treatment plant'
+        ];
+
         $itemExits = [];
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             $productId = $faker->randomElement($productIds);
             $product = DB::table('products')->find($productId);
 
@@ -34,7 +60,7 @@ class ItemExitSeeder extends Seeder
                 'project_id' => $faker->randomElement($projectIds),
                 'quantity' => $quantity,
                 'exit_date' => $faker->dateTimeBetween('-1 year', 'now'),
-                'description' => $faker->optional()->sentence,
+                'description' => $faker->randomElement($descriptions),
                 'created_at' => now(),
                 'updated_at' => now()
             ];

@@ -29,6 +29,7 @@ class DashboardController extends Controller
         $itemExitCount = ItemExit::count();
         $itemEntryCount = ItemEntry::count();
         $projects = Project::with(['ipabaja', 'client'])
+            ->ongoing()
             ->orderBy('deadline', 'asc')
             ->paginate(5);
         $itemEntries = ItemEntry::with(['item', 'vendor'])

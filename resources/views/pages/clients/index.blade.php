@@ -43,7 +43,7 @@
                             <td>{{ $client->address }}</td>
                             <td>{{ $client->phone }}</td>
                             <td><img src="{{ asset('storage/images/' . $client->image) }}" alt="{{ $client->name }}"
-                                    style="max-height: 100px; width: auto; object-fit: contain;"></td>
+                                    style="max-height: 150px; width: 200px; object-fit: contain;"></td>
                             <td>
                                 <div>
                                     <a href="/clients/edit/{{ $client->id }}" class="btn-edit"
